@@ -1,7 +1,7 @@
 # ===================================
 # [Your Program Title]
 # ===================================
-# Developed by. [Enter your name]
+# Developed by. Jawed Iqbal Alfaruqiy
 # JCDS - [Class Batch]
 
 
