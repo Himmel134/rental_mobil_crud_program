@@ -2,56 +2,61 @@
 # [Your Program Title]
 # ===================================
 # Developed by. Jawed Iqbal Alfaruqiy
-# JCDS - [Class Batch]
-
 
 # /************************************/
 
+# /===== Imported file =====/
+import sign_menu from sign_menu
+
 # /===== Data Model =====/
 # Create your data model here
-data = [] # Example data model
-
-
-# /===== Feature Program =====/
-# Create your feature program here
-def read():
-    """Function for read the data
-    """
-    return
-
-def create():
-    """Function for create the data
-    """
-    return
-
-def update():
-    """Function for update the data
-    """
-    return
-
-def delete():
-    """Function for delete the data
-    """
-    return
+# t for tes drive
+renter_acc = {'td' : 'td'}  # Dictionary untuk menyimpan data mobil. Key = ID, Values = Password
+status_cars = {  # Dicitonary untuk mrnyimpan data mobil
+    "mobil 1": {
+        "merek": "Toyota",
+        "model": "Avanza",
+        "tahun": 2020,
+        "harga_sewa_per_hari": 300_000
+    },
+    "mobil 2": {
+        "merek": "Honda",
+        "model": "Civic",
+        "tahun": 2021,
+        "harga_sewa_per_hari": 500_000
+    },
+    "mobil 3": {
+        "merek": "Suzuki",
+        "model": "Ertiga",
+        "tahun": 2019,
+        "harga_sewa_per_hari": 350_000
+    }
+}
+rented_cars = {}  # Dictionary untuk menyimpan data mobil yang sedang disewa
 
 # /===== Main Program =====/
 # Create your main program here
-def main():
-    """Function for main program
+
+def  main_menu():
+    """Function for Main menu
     """
+    while True:
+        print("\n=== MENU UTAMA ===")        
+        print("1. Data mobil yang tersedia dan sewa Mobil")
+        print("2. Kembalikan Mobil")
+        print("3. Kembali ke menu masuk")
+        print("4. Exit")
 
-    input_user = input("Insert your option: ")
-    if input_user == "1":
-        read()
-    elif input_user == "2":
-        create()
-    elif input_user == "3":
-        update()
-    elif input_user == "4":
-        delete()
-    else:
-        print("Input is not valid !")
-
+        choice = input("Pilih opsi 1-4: ")
+        if choice == '1':
+            pass
+        if choice == '2':
+            pass
+        if choice == '3':
+            print("Kembali ke menu masuk")
+            pass
+        if choice == '4':
+            break
 
 if __name__ == "__main__":
-    main()
+    main_menu()
