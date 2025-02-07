@@ -49,7 +49,8 @@ def sign_menu():
             pwd_renter = input("Enter password : ")
             user = login(id_renter, pwd_renter)  # Memperbaiki nama fungsi
             if user == "Login berhasil":  # Memeriksa hasil login
-                print(f"\nSelamat datang, {id_renter}!")
+                print("\nLogin Berhasil")
+                print(f"Selamat datang, {id_renter}!")
             else:
                 print(user)  # Menampilkan pesan kesalahan
         elif option == '2':
