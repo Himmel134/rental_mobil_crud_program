@@ -7,7 +7,7 @@
 
 # /===== Imported file =====/
 from login_register import login, register
-from rent_return import status_cars, rented_cars, rent_car, return_car, renter_own
+from rent_return import status_cars, rent_car, return_car, renter_own
 
 # ===== Sign menu program =====
 def sign_menu():
@@ -77,7 +77,7 @@ def main_menu(id_renter):
                 want_rent = input("\nApakah anda ingin menyewa (Y/N): ")
                 if want_rent.upper() == 'Y':
                     car_info = input("\nMasukkan ID mobil yang ingin disewa : ").lower()
-                    car_rent = rent_car(car_info)
+                    car_rent = rent_car(id_renter, car_info)
                     print(car_rent)
                 elif want_rent.upper() == 'N':
                     break
@@ -89,8 +89,8 @@ def main_menu(id_renter):
             print(renter_own)
             rent_info = input("Masukkan ID mobil yang ingin dikembalikan : ")
             if rent_info in status_cars:
-                car_id = return_car(rent_info)
-                print(car_id)
+                rented_car = return_car(id_renter, rent_info)
+                print(rented_car)
             else:
                 print("id tidak sesuai")
 
