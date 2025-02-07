@@ -6,7 +6,7 @@
 # /************************************/
 
 # /===== Imported file =====/
-from login import get_user
+from login_register import get_user
 
 # /===== Data Model =====/
 # Create your data model here
@@ -37,7 +37,6 @@ def sign_menu():
     option = None
     while option != '3':
         print("\n=== RENTAL MOBIL HIMMEL ===")
-        # print(renter_acc) -> # cek isi renter_acc
         print("1. Masuk")
         print("2. Daftar")
         print("3. Exit") 
@@ -48,12 +47,20 @@ def sign_menu():
             print("Masukkan ID dan password")
             id_renter = input("Enter ID : ")
             pwd_renter = input("Enter password : ")
-            user = get_user(id_renter,pwd_renter)
-            print(user)
+            user = get_user(id_renter, pwd_renter)  # Memperbaiki nama fungsi
+            if user == "Login berhasil":  # Memeriksa hasil login
+                print(f"Selamat datang, {id_renter}!")
+            else:
+                print(user)  # Menampilkan pesan kesalahan
         elif option == '2':
-            print("\nGoodbye !")
+            print("\n=== Daftar ===")
+            # Tambahkan logika pendaftaran di sini
+            pass
+        elif option == '3':
+            print("\nGoodbye!")
         else:
             print("Input invalid")
+
 # /===== Main menu program =====/
 
 # def  main_menu():
