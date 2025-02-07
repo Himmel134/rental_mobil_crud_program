@@ -1,5 +1,5 @@
 # ===================================
-# [Your Program Title]
+# [CRUD Rental Mobil Himmel]
 # ===================================
 # Developed by. Jawed Iqbal Alfaruqiy
 
@@ -7,30 +7,7 @@
 
 # /===== Imported file =====/
 from login_register import login, register
-
-# /===== Data Model =====/
-# Create your data model here
-status_cars = {  # Dicitonary untuk mrnyimpan data mobil
-    "mobil 1": {
-        "merek": "Toyota",
-        "model": "Avanza",
-        "tahun": 2020,
-        "harga_sewa_per_hari": 300_000
-    },
-    "mobil 2": {
-        "merek": "Honda",
-        "model": "Civic",
-        "tahun": 2021,
-        "harga_sewa_per_hari": 500_000
-    },
-    "mobil 3": {
-        "merek": "Suzuki",
-        "model": "Ertiga",
-        "tahun": 2019,
-        "harga_sewa_per_hari": 350_000
-    }
-}
-rented_cars = {}  # Dictionary untuk menyimpan data mobil yang sedang disewa
+from rent_return import status_cars, rented_cars, rent_car
 
 # ===== Sign menu program =====
 def sign_menu():
@@ -78,7 +55,7 @@ def main_menu(id_renter):
 
     option = None
     while option != '4':
-        print(f"Selamat datang, {id_renter.capitalize()}!")  # Menampilkan ID pengguna
+        print(f"\nSelamat datang, {id_renter.capitalize()}!")  # Menampilkan ID pengguna
         print("\n=== MENU UTAMA ===")        
         print("1. Data mobil yang tersedia dan sewa Mobil")
         print("2. Kembalikan Mobil")
@@ -87,7 +64,20 @@ def main_menu(id_renter):
 
         choice = input("Pilih opsi 1-4: ")
         if choice == '1':
-            pass
+            print("\nMobil yang tersedia")
+        # Cek Ketersediaan mobil
+            for car_num, car_info in status_cars.items():    
+                status = "Disewa" if car_num in rented_cars else "Tersedia"
+                print(f"{car_num}: {car_info['merek']} {car_info['model']} ({car_info['tahun']}), Harga Sewa: {car_info['harga_sewa_per_hari']} Rupiah. Status: {status}")
+            
+            want_rent = input("\nApakah anda ingin menyewa (Y/N): ")
+            if want_rent.upper() == 'Y':
+                car_id = input("\nMasukkan ID mobil yang ingin disewa : ").lower()
+                car_id = rent_car(car_id)
+            elif want_rent.upper() == 'N':
+                return main_menu(id_renter)
+            else:
+                print("Harap masukkan input dengan benar")
         elif choice == '2':
             pass
         elif choice == '3':
