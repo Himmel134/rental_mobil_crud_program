@@ -32,7 +32,7 @@ status_cars = {  # Dicitonary untuk mrnyimpan data mobil
 }
 rented_cars = {}  # Dictionary untuk menyimpan data mobil yang sedang disewa
 
-# /===== Sign menu program =====/
+# ===== Sign menu program =====
 def sign_menu():
     option = None
     while option != '3':
@@ -47,10 +47,10 @@ def sign_menu():
             print("Masukkan ID dan password")
             id_renter = input("Enter ID : ")
             pwd_renter = input("Enter password : ")
-            user = login(id_renter, pwd_renter)  # Memperbaiki nama fungsi
-            if user == "Login berhasil":  # Memeriksa hasil login
+            user = login(id_renter, pwd_renter)  # Pastikan fungsi login sudah ada
+            if user == "Login berhasil":  
                 print("\nLogin Berhasil")
-                print(f"Selamat datang, {id_renter}!")
+                return id_renter  # Mengembalikan ID pengguna setelah login sukses
             else:
                 print(user)  # Menampilkan pesan kesalahan
         elif option == '2':
@@ -58,7 +58,7 @@ def sign_menu():
             print("Daftarkan ID dan password")
             id_regis = input("Enter ID : ")
             pwd_regis = input("Enter password : ")
-            user = register(id_regis, pwd_regis)
+            user = register(id_regis, pwd_regis)  # Pastikan fungsi register sudah ada
             if user == "ID sudah ada":
                 print("ID yang anda masukkan sudah ada sebelumnya")
             else:
@@ -68,27 +68,38 @@ def sign_menu():
         else:
             print("Input invalid")
 
-# /===== Main menu program =====/
+    # return None  # Jika keluar dari sign_menu tanpa login, kembalikan None
 
-# def  main_menu():
-#     option = None
-#     while option != '4':
-#         print("\n=== MENU UTAMA ===")        
-#         print("1. Data mobil yang tersedia dan sewa Mobil")
-#         print("2. Kembalikan Mobil")
-#         print("3. Kembali ke menu masuk")
-#         print("4. Exit")
+# ===== Main menu program =====
+def main_menu(id_renter):
+    # if id_renter is None:
+    #     print("Akses ditolak! Silakan login terlebih dahulu.")
+    #     return
 
-#         choice = input("Pilih opsi 1-4: ")
-#         if choice == '1':
-#             pass
-#         if choice == '2':
-#             pass
-#         if choice == '3':
-#             print("Kembali ke menu masuk")
-#             pass
-#         if choice == '4':
-#             break
+    option = None
+    while option != '4':
+        print(f"Selamat datang, {id_renter.capitalize()}!")  # Menampilkan ID pengguna
+        print("\n=== MENU UTAMA ===")        
+        print("1. Data mobil yang tersedia dan sewa Mobil")
+        print("2. Kembalikan Mobil")
+        print("3. Kembali ke menu masuk")
+        print("4. Exit")
+
+        choice = input("Pilih opsi 1-4: ")
+        if choice == '1':
+            pass
+        elif choice == '2':
+            pass
+        elif choice == '3':
+            print("Kembali ke menu masuk")
+            return sign_menu()  # Kembali ke menu login
+        elif choice == '4':
+            print("Terima kasih telah menggunakan layanan kami!")
+            break
+        else:
+            print("Input invalid")
 
 if __name__ == "__main__":
-    sign_menu()
+    id_renter = sign_menu()  # Menyimpan hasil login
+    if id_renter:  # Jika login berhasil
+        main_menu(id_renter)  # Masuk ke menu utama
