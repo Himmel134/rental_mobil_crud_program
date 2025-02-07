@@ -6,11 +6,10 @@
 # /************************************/
 
 # /===== Imported file =====/
-import sign_menu from sign_menu
+
 
 # /===== Data Model =====/
 # Create your data model here
-# t for tes drive
 renter_acc = {'td' : 'td'}  # Dictionary untuk menyimpan data mobil. Key = ID, Values = Password
 status_cars = {  # Dicitonary untuk mrnyimpan data mobil
     "mobil 1": {
