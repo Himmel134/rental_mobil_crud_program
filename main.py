@@ -6,11 +6,10 @@
 # /************************************/
 
 # /===== Imported file =====/
-
+from login import get_user
 
 # /===== Data Model =====/
 # Create your data model here
-renter_acc = {'td' : 'td'}  # Dictionary untuk menyimpan data mobil. Key = ID, Values = Password
 status_cars = {  # Dicitonary untuk mrnyimpan data mobil
     "mobil 1": {
         "merek": "Toyota",
@@ -33,29 +32,49 @@ status_cars = {  # Dicitonary untuk mrnyimpan data mobil
 }
 rented_cars = {}  # Dictionary untuk menyimpan data mobil yang sedang disewa
 
-# /===== Main Program =====/
-# Create your main program here
+# /===== Sign menu program =====/
+def sign_menu():
+    option = None
+    while option != '3':
+        print("\n=== RENTAL MOBIL HIMMEL ===")
+        # print(renter_acc) -> # cek isi renter_acc
+        print("1. Masuk")
+        print("2. Daftar")
+        print("3. Exit") 
 
-def  main_menu():
-    """Function for Main menu
-    """
-    while True:
-        print("\n=== MENU UTAMA ===")        
-        print("1. Data mobil yang tersedia dan sewa Mobil")
-        print("2. Kembalikan Mobil")
-        print("3. Kembali ke menu masuk")
-        print("4. Exit")
+        option = input("Pilih opsi (1-3) : ")
+        if option == '1':
+            print("\n=== Masuk ===")
+            print("Masukkan ID dan password")
+            id_renter = input("Enter ID : ")
+            pwd_renter = input("Enter password : ")
+            user = get_user(id_renter,pwd_renter)
+            print(user)
+        elif option == '2':
+            print("\nGoodbye !")
+        else:
+            print("Input invalid")
+# /===== Main menu program =====/
 
-        choice = input("Pilih opsi 1-4: ")
-        if choice == '1':
-            pass
-        if choice == '2':
-            pass
-        if choice == '3':
-            print("Kembali ke menu masuk")
-            pass
-        if choice == '4':
-            break
+# def  main_menu():
+#     option = None
+#     while option != '4':
+#         print("\n=== MENU UTAMA ===")        
+#         print("1. Data mobil yang tersedia dan sewa Mobil")
+#         print("2. Kembalikan Mobil")
+#         print("3. Kembali ke menu masuk")
+#         print("4. Exit")
+
+#         choice = input("Pilih opsi 1-4: ")
+#         if choice == '1':
+#             pass
+#         if choice == '2':
+#             pass
+#         if choice == '3':
+#             print("Kembali ke menu masuk")
+#             pass
+#         if choice == '4':
+#             break
 
 if __name__ == "__main__":
-    main_menu()
+    sign_menu()
