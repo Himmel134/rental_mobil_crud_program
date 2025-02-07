@@ -6,7 +6,7 @@
 # /************************************/
 
 # /===== Imported file =====/
-from login_register import get_user
+from login_register import login, register
 
 # /===== Data Model =====/
 # Create your data model here
@@ -47,15 +47,21 @@ def sign_menu():
             print("Masukkan ID dan password")
             id_renter = input("Enter ID : ")
             pwd_renter = input("Enter password : ")
-            user = get_user(id_renter, pwd_renter)  # Memperbaiki nama fungsi
+            user = login(id_renter, pwd_renter)  # Memperbaiki nama fungsi
             if user == "Login berhasil":  # Memeriksa hasil login
-                print(f"Selamat datang, {id_renter}!")
+                print(f"\nSelamat datang, {id_renter}!")
             else:
                 print(user)  # Menampilkan pesan kesalahan
         elif option == '2':
             print("\n=== Daftar ===")
-            # Tambahkan logika pendaftaran di sini
-            pass
+            print("Daftarkan ID dan password")
+            id_regis = input("Enter ID : ")
+            pwd_regis = input("Enter password : ")
+            user = register(id_regis, pwd_regis)
+            if user == "ID sudah ada":
+                print("ID yang anda masukkan sudah ada sebelumnya")
+            else:
+                print(user)
         elif option == '3':
             print("\nGoodbye!")
         else:
