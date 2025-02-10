@@ -33,13 +33,19 @@ def rent_car(id_renter:str, car_id:str) -> str:
         renter_name = input("Masukkan nama penyewa : ")
         rented_day = input("Masukkan jumlah hari(numerik) : ")
         if rented_day.isnumeric():
-            renter_own[id_renter] = {'ID mobil' : car_id, 'penyewa' : renter_name.lower(), 'hari' : rented_day.lower(), 'merek': status_cars[car_id]['merek']}
+            renter_own[id_renter] = {
+                'id mobil' : car_id, 
+                'penyewa' : renter_name.lower(), 
+                'hari' : rented_day.lower(), 
+                'merek': status_cars[car_id]['merek']}
             print(renter_own) # -> cek isi dicitionary rented_cars
-            return (f"\n{car_id} Berhasil disewa oleh {renter_name}, {rented_day} Hari.")
+            return (f"\n{car_id} Berhasil disewa oleh {renter_name}, selama {rented_day} Hari.")
         else:
             return ("Masukkan hari dalam bentuk numerik")
-    elif car_id in renter_own[id_renter]:
-        return("\nMobil sedang disewa oleh orang lain")
+    elif id_renter in renter_own:
+        return "\nAnda sudah menyewa mobil lain. Kembalikan dulu sebelum menyewa yang baru."
+    elif car_id in [data["id mobil"] for data in renter_own.values()]:
+        return "\nMobil sedang disewa oleh orang lain"
     else:
         return("\nMobil tidak ditemukan")
     
@@ -47,15 +53,17 @@ def return_car(id_renter:str, car_id:str) -> str:
     """return car
 
     Args:
-        car_id (str): id mobil
+        id_renter (str): id_renter
+        car_id (str): car_id
 
     Returns:
-        str: car_id
+        str: renter_own{}
     """
     if car_id in renter_own[id_renter]:
         print(f"ID mobil : {status_cars}, ")
-        del renter_own[car_id[id_renter]]
-        return(f"{car_id} berhasil dikembalikan")
-    elif car_id not in renter_own[id_renter]:
+        if id_renter in renter_own and renter_own[id_renter]['id mobil'] == car_id:
+            del renter_own[id_renter]
+            return(f"{car_id} berhasil dikembalikan")
+    else:
         return("Mobil tidak sedang disewa")
     

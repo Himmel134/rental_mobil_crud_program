@@ -57,7 +57,7 @@ def main_menu(id_renter):
     #     return
 
     while True:
-        print(f"\nSelamat datang, {id_renter.capitalize()}!")  # Menampilkan ID pengguna
+        print(f"\nSelamat datang, Renter {id_renter.capitalize()}!")  # Menampilkan ID pengguna
         print("\n=== MENU UTAMA ===")        
         print("1. Data mobil yang tersedia dan sewa Mobil")
         print("2. Kembalikan Mobil")
@@ -71,7 +71,7 @@ def main_menu(id_renter):
         # Cek Ketersediaan mobil
             while True:
                 for car_num, car_info in status_cars.items():    
-                    status = "Disewa" if car_num in renter_own else "Tersedia"
+                    status = "Disewa" if id_renter in renter_own and renter_own[id_renter]['id mobil'] == car_num else "Tersedia"
                     print(f"{car_num}: {car_info['merek']} {car_info['model']} ({car_info['tahun']}), Harga Sewa: {car_info['harga_sewa_per_hari']} Rupiah. Status: {status}")
                 
                 want_rent = input("\nApakah anda ingin menyewa (Y/N): ")
