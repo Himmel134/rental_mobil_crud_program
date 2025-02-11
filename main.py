@@ -13,8 +13,8 @@ from rent_return import status_cars, rent_car, return_car, renter_own
 def sign_menu():
     while True:
         print("\n=== RENTAL MOBIL HIMMEL ===")
-        print("1. Masuk")
-        print("2. Daftar")
+        print("1. Masukkan akun")
+        print("2. Daftarkan akun")
         print("3. Exit") 
 
         option = input("Pilih opsi (1-3) : ")

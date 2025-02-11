@@ -20,7 +20,7 @@ status_cars = {  # Dicitonary untuk mrnyimpan data mobil
 }
 renter_own = {}
 
-def rent_car(id_renter:str, car_id:str) -> str:
+def rent_1car(id_renter:str, car_id:str) -> str:
     """Rent Car
 
     Args:
