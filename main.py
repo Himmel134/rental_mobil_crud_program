@@ -75,15 +75,15 @@ def main_menu(id_renter):
                     status = "Disewa" if id_renter in renter_own and renter_own[id_renter]['id mobil'] == car_num else "Tersedia"
                     print(f"{car_num}: {car_info['merek']} {car_info['model']} ({car_info['tahun']}), Harga Sewa: {car_info['harga_sewa_per_hari']} Rupiah. Status: {status}")
                 
-                want_rent = input("\nApakah anda ingin menyewa (Y/N): ")
-                if want_rent.upper() == 'Y':
-                    car_info = input("\nMasukkan ID mobil yang ingin disewa : ").lower()
-                    car_rent = rent_car(id_renter, car_info)
-                    print(car_rent)
-                elif want_rent.upper() == 'N':
-                    break
-                else:
-                    print("\nHarap masukkan input dengan benar")
+                # want_rent = input("\nApakah anda ingin menyewa (Y/N): ")
+                # if want_rent.upper() == 'Y':
+                #     car_info = input("\nMasukkan ID mobil yang ingin disewa : ").lower()
+                #     car_rent = rent_car(id_renter, car_info)
+                #     print(car_rent)
+                # elif want_rent.upper() == 'N':
+                #     break
+                # else:
+                #     print("\nHarap masukkan input dengan benar")
         
         elif choice == '2':
             print("\nMobil yang kamu pinjam : ")

@@ -14,14 +14,14 @@ status_cars = {  # Dicitonary untuk mrnyimpan data mobil
     "AE5761": {
         "merek": "Suzuki",
         "model": "Ertiga",
-        "tahun": 2019,
+        "tahun": 2018,
         "harga_sewa_per_hari": 350_000
     },
     "AE1782": {
-        "merek": "Suzuki",
+        "merek": "Karimun",
         "model": "Ertiga",
-        "tahun": 2019,
-        "harga_sewa_per_hari": 350_000
+        "tahun": 2013,
+        "harga_sewa_per_hari": 250_000
     }
 }
 renter_own = {}
