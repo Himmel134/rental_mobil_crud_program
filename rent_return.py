@@ -1,17 +1,23 @@
 status_cars = {  # Dicitonary untuk mrnyimpan data mobil
-    "mobil 1": {
+    "AE3221": {
         "merek": "Toyota",
         "model": "Avanza",
         "tahun": 2020,
         "harga_sewa_per_hari": 300_000
     },
-    "mobil 2": {
+    "AE7259": {
         "merek": "Honda",
         "model": "Civic",
         "tahun": 2021,
         "harga_sewa_per_hari": 500_000
     },
-    "mobil 3": {
+    "AE5761": {
+        "merek": "Suzuki",
+        "model": "Ertiga",
+        "tahun": 2019,
+        "harga_sewa_per_hari": 350_000
+    },
+    "AE1782": {
         "merek": "Suzuki",
         "model": "Ertiga",
         "tahun": 2019,
