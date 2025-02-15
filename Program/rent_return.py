@@ -18,8 +18,8 @@ status_cars = {  # Dicitonary untuk mrnyimpan data mobil
         "harga_sewa_per_hari": 350_000
     },
     "AE1782": {
-        "merek": "Karimun",
-        "model": "Ertiga",
+        "merek": "Suzuki",
+        "model": "Karimun",
         "tahun": 2013,
         "harga_sewa_per_hari": 250_000
     }
