@@ -72,4 +72,3 @@ def return_car(id_renter:str, car_id:str) -> str:
             return(f"{car_id} berhasil dikembalikan")
     else:
         return("Mobil tidak sedang disewa")
-    
