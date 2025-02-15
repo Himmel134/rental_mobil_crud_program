@@ -7,7 +7,7 @@
 
 # /===== Imported file =====/
 from login_register import login, register
-from rent_return import status_cars, return_car, renter_own
+from rent_return import status_cars, return_car, renter_own, rent_car
 
 # ===== Sign menu program =====
 def sign_menu():
@@ -59,7 +59,8 @@ def main_menu(id_renter):
     while True:
         print(f"\nSelamat datang, Renter {id_renter.capitalize()}!")  # Menampilkan ID pengguna
         print("\n=== MENU UTAMA ===")        
-        print("1. Data mobil yang tersedia dan sewa Mobil")
+        print("1. Data mobil yang tersedia")
+        print("2. Sewa mobil")
         print("2. Kembalikan Mobil")
         print("3. Kembali ke menu masuk")
         print("4. Exit")
