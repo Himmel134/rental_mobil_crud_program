@@ -12,7 +12,7 @@ from rent_return import status_cars, return_car, renter_own
 # ===== Sign menu program =====
 def sign_menu():
     while True:
-        print("\n=== MENU MASUK RENTAL MOBIL X ===")
+        print("\n=== MENU MASUK RENTAL MOBIL XY ===")
         print("1. Masukkan akun")
         print("2. Daftarkan akun")
         print("3. Exit") 
