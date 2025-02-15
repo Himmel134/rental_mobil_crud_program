@@ -1,5 +1,3 @@
-# rental.py
-
 def data_car(status_cars, renter_own, id_renter, rent_car):
     while True:
         print("\n1. Data seluruh mobil")               
@@ -14,9 +12,16 @@ def data_car(status_cars, renter_own, id_renter, rent_car):
                 status = "Disewa" if id_renter in renter_own and renter_own[id_renter]['id mobil'] == plat else "Tersedia"
                 print(f"{plat}: {info['merek']} {info['model']} ({info['tahun']}), Harga Sewa: {info['harga_sewa_per_hari']} Rupiah. Status: {status}")
             
-            if input("\nApakah Anda ingin menyewa mobil? (Y/N): ").upper() == 'Y':
-                car_info = input("\nMasukkan plat nomor mobil yang ingin disewa: ").upper()
-                print(rent_car(id_renter, car_info))
+            while True:  # Looping untuk validasi input
+                rent_input = input("\nApakah Anda ingin menyewa mobil? (Y/N): ").upper()
+                if rent_input == 'Y':
+                    car_info = input("\nMasukkan plat nomor mobil yang ingin disewa: ").upper()
+                    print(rent_car(id_renter, car_info))
+                    break  # Keluar dari loop jika input benar
+                elif rent_input == 'N':
+                    break  # Keluar dari loop jika memilih tidak menyewa
+                else:
+                    print("Input tidak valid! Harap masukkan 'Y' atau 'N'.")
 
         elif check_mobil == '2':
             check_plat = input("\nMasukkan nomor plat mobil yang ingin dicari: ").upper()
@@ -25,9 +30,17 @@ def data_car(status_cars, renter_own, id_renter, rent_car):
                 status = "Disewa" if id_renter in renter_own and renter_own[id_renter]['id mobil'] == check_plat else "Tersedia"
                 print(f"\n{check_plat}: {info['merek']} {info['model']} ({info['tahun']}), Harga Sewa: {info['harga_sewa_per_hari']} Rupiah. Status: {status}")
 
-                if input("\nApakah Anda ingin menyewa mobil? (Y/N): ").upper() == 'Y':
-                    car_info = input("\nMasukkan plat nomor mobil yang ingin disewa: ").upper()
-                    print(rent_car(id_renter, car_info))
+                while True:  # Looping untuk validasi input
+                    rent_input = input("\nApakah Anda ingin menyewa mobil? (Y/N): ").upper()
+                    if rent_input == 'Y':
+                        car_info = input("\nMasukkan plat nomor mobil yang ingin disewa: ").upper()
+                        print(rent_car(id_renter, car_info))
+                        break
+                    elif rent_input == 'N':
+                        break
+                    else:
+                        print("Input tidak valid! Harap masukkan 'Y' atau 'N'.")
+
             else:
                 print("Mobil yang Anda cari tidak ada.")
 
@@ -41,14 +54,21 @@ def data_car(status_cars, renter_own, id_renter, rent_car):
                     found = True
 
             if found:
-                if input("\nApakah Anda ingin menyewa mobil? (Y/N): ").upper() == 'Y':
-                    car_info = input("\nMasukkan plat nomor mobil yang ingin disewa: ").upper()
-                    print(rent_car(id_renter, car_info))
+                while True:  # Looping untuk validasi input
+                    rent_input = input("\nApakah Anda ingin menyewa mobil? (Y/N): ").upper()
+                    if rent_input == 'Y':
+                        car_info = input("\nMasukkan plat nomor mobil yang ingin disewa: ").upper()
+                        print(rent_car(id_renter, car_info))
+                        break
+                    elif rent_input == 'N':
+                        break
+                    else:
+                        print("Input tidak valid! Harap masukkan 'Y' atau 'N'.")
             else:
                 print("Mobil yang Anda cari tidak ada.")
 
         elif check_mobil == '4':
-            break
+            break  # Kembali ke menu utama
 
         else:
             print("Pilihan tidak valid, silakan coba lagi.")
