@@ -7,12 +7,12 @@
 
 # /===== Imported file =====/
 from login_register import login, register
-from rent_return import status_cars, rent_car, return_car, renter_own
+from rent_return import status_cars, return_car, renter_own
 
 # ===== Sign menu program =====
 def sign_menu():
     while True:
-        print("\n=== RENTAL MOBIL HIMMEL ===")
+        print("\n=== MENU MASUK RENTAL MOBIL X ===")
         print("1. Masukkan akun")
         print("2. Daftarkan akun")
         print("3. Exit") 
