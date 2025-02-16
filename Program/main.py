@@ -3,12 +3,11 @@
 # ===================================
 # Developed by. Jawed Iqbal Alfaruqiy
 
-# /************************************/
-
 # /===== Imported file =====/
-from login_register import login, register
+from login_register import login, register, renters_data
 from rent_return import status_cars, return_car, renter_own, rent_car
 from data_car import data_car
+from biodata import biodata_menu
 
 # ===== Sign menu program =====
 def sign_menu():
@@ -18,79 +17,79 @@ def sign_menu():
         print("2. Daftarkan akun")
         print("3. Exit") 
 
-        option = input("Pilih opsi (1-3) : ")
+        option = input("Pilih opsi (1-3): ").strip()
 
         if option == '1':
             print("\n=== Masuk ===")
-            print("Masukkan ID dan password")
-            id_renter = input("Enter ID : ")
-            pwd_renter = input("Enter password : ")
-            user = login(id_renter, pwd_renter)  # Pastikan fungsi login sudah ada
+            nama = input("Masukkan Nama: ").strip()
+            pwd = input("Masukkan Password: ").strip()
+            user = login(nama, pwd)  
+
             if user == "Login berhasil":  
-                print("\nLogin Berhasil")
-                return id_renter  # Mengembalikan ID pengguna setelah login sukses
+                print("\nLogin Berhasil!")
+                return nama  # Masuk ke menu utama
             else:
-                print(user)  # Menampilkan pesan kesalahan
+                print(user)  # Menampilkan pesan kesalahan dan kembali ke menu utama
 
         elif option == '2':
             print("\n=== Daftar ===")
-            print("Daftarkan ID dan password")
-            id_regis = input("Enter ID : ")
-            pwd_regis = input("Enter password : ")
-            user = register(id_regis, pwd_regis)  # Pastikan fungsi register sudah ada
-            if user == "ID sudah ada":
-                print("ID yang anda masukkan sudah ada sebelumnya")
-            else:
-                print(user)
+            nama = input("Masukkan Nama Lengkap: ").strip().title()
+            if not nama:
+                print("Nama tidak boleh kosong! Kembali ke menu utama.")
+                return
+            
+            pwd = input("Masukkan Password (min. 6 karakter): ").strip()
+            if len(pwd) < 6:
+                print("Password terlalu pendek! Kembali ke menu utama.")
+                return
+
+            status = register(nama, pwd)  # Memanggil fungsi register
+            print(status)  # Menampilkan pesan status (berhasil atau gagal)
 
         elif option == '3':
             print("\nTerima kasih telah menggunakan layanan kami!")
             exit()
         else:
-            print("Input invalid")
-
-    # return None  # Jika keluar dari sign_menu tanpa login, kembalikan None
+            print("Input invalid! Pilih opsi 1-3.")
 
 # ===== Main menu program =====
-def main_menu(id_renter):
-    # if id_renter is None:
-    #     print("Akses ditolak! Silakan login terlebih dahulu.")
-    #     return
-
+def main_menu(nama):
     while True:
-        print(f"\nSelamat datang, Renter {id_renter.capitalize()}!")  # Menampilkan ID pengguna
+        print(f"\nSelamat datang, {nama}!")  
         print("\n=== MENU UTAMA ===")        
         print("1. Data mobil yang tersedia dan sewa mobil")
         print("2. Kembalikan Mobil")
-        print("3. Kembali ke menu masuk")
-        print("4. Exit")
+        print("3. Biodata renter")
+        print("4. Kembali ke menu masuk")
+        print("5. Exit")
 
-        choice = input("Pilih opsi 1-4: ")
+        choice = input("Pilih opsi (1-5): ").strip()
 
         if choice == '1':
-            data_car(status_cars, renter_own, id_renter, rent_car)
+            data_car(status_cars, renter_own, nama, rent_car)
 
         elif choice == '2':
-            print("\nMobil yang kamu pinjam: ", renter_own.get(id_renter, "Tidak ada"))
+            print("\nMobil yang kamu pinjam:", renter_own.get(nama, "Tidak ada"))
             rent_info = input("Masukkan plat nomor mobil yang ingin dikembalikan: ").upper().strip()
-            print(return_car(id_renter, rent_info))
+            print(return_car(nama, rent_info))
 
         elif choice == '3':
-            print("\nKembali ke menu masuk")
-            return
-        
+            biodata_menu(nama)  # Pindah ke fungsi pengelolaan biodata
+
         elif choice == '4':
+            print("\nKembali ke menu masuk...")
+            return
+
+        elif choice == '5':
             print("Terima kasih telah menggunakan layanan kami!")
             exit()
 
         else:
-            print("Input invalid")
+            print("Input invalid! Pilih opsi 1-5.")
 
 # ===== Main Loop =====
 if __name__ == "__main__":
     while True:
-        id_renter = sign_menu()  # Menyimpan hasil login
-        if id_renter:  # Jika login berhasil
-            main_menu(id_renter)  # Masuk ke menu utama
-        else:
-            break
+        nama = sign_menu()  
+        if nama:  
+            main_menu(nama)  
