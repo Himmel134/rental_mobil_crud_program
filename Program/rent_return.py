@@ -41,11 +41,10 @@ def rent_car(id_renter:str, car_id:str) -> str:
         if rented_day.isnumeric():
             renter_own[id_renter] = {
                 'id mobil' : car_id, 
-                'penyewa' : renter_name.lower(), 
                 'hari' : rented_day.lower(), 
                 'merek': status_cars[car_id]['merek']}
             print(renter_own) # -> cek isi dicitionary rented_cars
-            return (f"\n{car_id} Berhasil disewa oleh {renter_name}, selama {rented_day} Hari.")
+            return (f"\n{car_id} Berhasil disewa oleh {id_renter}, selama {rented_day} Hari.")
         else:
             return ("Masukkan hari dalam bentuk numerik")
     elif id_renter in renter_own:

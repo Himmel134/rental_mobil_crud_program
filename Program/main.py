@@ -73,7 +73,7 @@ def main_menu(id_renter):
         elif choice == '2':
             print("\nMobil yang kamu pinjam : ")
             print(renter_own)
-            rent_info = input("Masukkan plat nomor mobil yang ingin dikembalikan : ")
+            rent_info = input("Masukkan plat nomor mobil yang ingin dikembalikan : ").upper()
             if rent_info in status_cars:
                 rented_car = return_car(id_renter, rent_info)
                 print(rented_car)

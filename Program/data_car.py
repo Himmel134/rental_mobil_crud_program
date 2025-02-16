@@ -27,7 +27,7 @@ def data_car(status_cars, renter_own, id_renter, rent_car):
             check_plat = input("\nMasukkan nomor plat mobil yang ingin dicari: ").upper()
             if check_plat in status_cars:
                 info = status_cars[check_plat]
-                status = "Disewa" if id_renter in renter_own and renter_own[id_renter]['id mobil'] == check_plat else "Tersedia"
+                status = "Disewa" if any(rent_info['id mobil'] == plat for rent_info in renter_own.values()) else "Tersedia"
                 print(f"\n{check_plat}: {info['merek']} {info['model']} ({info['tahun']}), Harga Sewa: {info['harga_sewa_per_hari']} Rupiah. Status: {status}")
 
                 while True:  # Looping untuk validasi input
