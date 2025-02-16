@@ -71,14 +71,9 @@ def main_menu(id_renter):
             data_car(status_cars, renter_own, id_renter, rent_car)
 
         elif choice == '2':
-            print("\nMobil yang kamu pinjam : ")
-            print(renter_own)
-            rent_info = input("Masukkan plat nomor mobil yang ingin dikembalikan : ").upper()
-            if rent_info in status_cars:
-                rented_car = return_car(id_renter, rent_info)
-                print(rented_car)
-            else:
-                print("id tidak sesuai")
+            print("\nMobil yang kamu pinjam: ", renter_own.get(id_renter, "Tidak ada"))
+            rent_info = input("Masukkan plat nomor mobil yang ingin dikembalikan: ").upper().strip()
+            print(return_car(id_renter, rent_info))
 
         elif choice == '3':
             print("\nKembali ke menu masuk")

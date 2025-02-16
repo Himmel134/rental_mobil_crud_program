@@ -35,24 +35,32 @@ def rent_car(id_renter:str, car_id:str) -> str:
     Returns:
         str: mobil
     """
-    if car_id in status_cars and car_id not in renter_own:
-        renter_name = input("Masukkan nama penyewa : ")
-        rented_day = input("Masukkan jumlah hari(numerik) : ")
-        if rented_day.isnumeric():
-            renter_own[id_renter] = {
-                'id mobil' : car_id, 
-                'hari' : rented_day.lower(), 
-                'merek': status_cars[car_id]['merek']}
-            print(renter_own) # -> cek isi dicitionary rented_cars
-            return (f"\n{car_id} Berhasil disewa oleh {id_renter}, selama {rented_day} Hari.")
-        else:
-            return ("Masukkan hari dalam bentuk numerik")
-    elif id_renter in renter_own:
+    # Jika mobil tidak ditemukan di daftar mobil
+    if car_id not in status_cars:
+        return "\nMobil tidak ditemukan."
+
+    # Jika pengguna sudah menyewa mobil lain, dia tidak bisa menyewa mobil baru
+    if id_renter in renter_own:
         return "\nAnda sudah menyewa mobil lain. Kembalikan dulu sebelum menyewa yang baru."
-    elif car_id in [data["id mobil"] for data in renter_own.values()]:
-        return "\nMobil sedang disewa oleh orang lain"
-    else:
-        return("\nMobil tidak ditemukan")
+
+    # Jika mobil sudah disewa oleh penyewa lain
+    if any(rent_info['plat mobil'] == car_id for rent_info in renter_own.values()):
+        return "\nMobil ini sudah disewa oleh pengguna lain."
+
+    # Input jumlah hari sewa
+    rented_day = input("Masukkan jumlah hari(numerik) : ")
+    if not rented_day.isnumeric():
+        return "\nMasukkan jumlah hari dalam bentuk angka."
+
+    # Jika semua validasi lolos, mobil bisa disewa
+    renter_own[id_renter] = {
+        'plat mobil': car_id, 
+        'hari': rented_day, 
+        'merek': status_cars[car_id]['merek']
+    }
+
+    return f"\n{car_id} berhasil disewa oleh {id_renter}, selama {rented_day} hari."
+
     
 def return_car(id_renter:str, car_id:str) -> str:
     """return car
@@ -64,10 +72,8 @@ def return_car(id_renter:str, car_id:str) -> str:
     Returns:
         str: renter_own{}
     """
-    if car_id in renter_own[id_renter]:
-        print(f"ID mobil : {status_cars}, ")
-        if id_renter in renter_own and renter_own[id_renter]['id mobil'] == car_id:
-            del renter_own[id_renter]
-            return(f"{car_id} berhasil dikembalikan")
+    if id_renter in renter_own and renter_own[id_renter]['plat mobil'] == car_id:
+        del renter_own[id_renter]
+        return f"{car_id} berhasil dikembalikan."
     else:
         return("Mobil tidak sedang disewa")
