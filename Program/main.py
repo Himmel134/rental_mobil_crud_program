@@ -4,7 +4,7 @@
 # Developed by. Jawed Iqbal Alfaruqiy
 
 # /===== Imported file =====/
-from login_register import login, register, renters_data
+from login_register import login, register
 from rent_return import status_cars, return_car, renter_own, rent_car
 from data_car import data_car
 from biodata import biodata_menu
