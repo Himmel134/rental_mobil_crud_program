@@ -3,6 +3,16 @@
 # ===================================
 # Developed by. Jawed Iqbal Alfaruqiy
 
+# 1. Perkenalan
+# 2. Program secara umum
+# -> Program apa
+# -> untuk siapa
+# -> latar belakang masalah
+# 3. Jelaskan menu utama
+# 4. Struktur data
+# 5. Read, Create,
+
+
 # /===== Imported file =====/
 from login_register import login, register
 from rent_return import status_cars, return_car, renter_own, rent_car
@@ -21,7 +31,7 @@ def sign_menu():
 
         if option == '1':
             print("\n=== Masuk ===")
-            nama = input("Masukkan Nama: ").strip()
+            nama = input("Masukkan Nama: ").strip().title()
             pwd = input("Masukkan Password: ").strip()
             user = login(nama, pwd)  
 
