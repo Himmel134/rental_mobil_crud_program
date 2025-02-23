@@ -1,49 +1,81 @@
-# ================================
-# Proses Penyewaan & Pengembalian
-# ================================
+from database import connect_db
 
-status_cars = {  # Dictionary untuk menyimpan data mobil
-    "AE3221": {"merek": "Toyota", "model": "Avanza", "tahun": 2020, "harga_sewa_per_hari": 300_000},
-    "AE7259": {"merek": "Honda", "model": "Civic", "tahun": 2021, "harga_sewa_per_hari": 500_000},
-    "AE5761": {"merek": "Suzuki", "model": "Ertiga", "tahun": 2018, "harga_sewa_per_hari": 350_000},
-    "AE1782": {"merek": "Suzuki", "model": "Karimun", "tahun": 2013, "harga_sewa_per_hari": 250_000}
-}
+def rent_car(nama_renter: str, plat_nomor: str) -> str:
+    """Menyewa mobil berdasarkan plat_nomor nomor dengan validasi dari database."""
+    
+    conn = connect_db()
+    cursor = conn.cursor(dictionary=True)
 
-renter_own = {}
+    # Cek apakah mobil ada di database
+    cursor.execute("SELECT * FROM cars WHERE plat_nomor = %s", (plat_nomor,))
+    car = cursor.fetchone()
 
-def rent_car(nama_renter: str, car_id: str) -> str:
-    """Menyewa mobil berdasarkan plat nomor."""
-
-    if car_id not in status_cars:
+    if not car:
+        cursor.close()
+        conn.close()
         return "\nMobil tidak ditemukan."
 
-    if nama_renter in renter_own:
+    # Cek apakah pengguna sudah menyewa mobil lain
+    cursor.execute("SELECT * FROM rentals WHERE renter_nama = %s", (nama_renter,))
+    existing_rental = cursor.fetchone()
+
+    if existing_rental:
+        cursor.close()
+        conn.close()
         return "\nAnda sudah menyewa mobil lain. Kembalikan dulu sebelum menyewa yang baru."
 
-    if any(rent_info['plat mobil'] == car_id for rent_info in renter_own.values()):
+    # Cek apakah mobil sudah disewa orang lain
+    cursor.execute("SELECT * FROM rentals WHERE plat_nomor = %s", (plat_nomor,))
+    rented_car = cursor.fetchone()
+
+    if rented_car:
+        cursor.close()
+        conn.close()
         return "\nMobil ini sudah disewa oleh pengguna lain."
 
+    # Input jumlah hari sewa
     rented_day = input("Masukkan jumlah hari (angka): ").strip()
-
+    
     if not rented_day.isdigit():
+        cursor.close()
+        conn.close()
         return "\nMasukkan jumlah hari dalam bentuk angka."
-
+    
     rented_day = int(rented_day)
 
-    renter_own[nama_renter] = {
-        'plat mobil': car_id, 
-        'hari': rented_day, 
-        'merek': status_cars[car_id]['merek']
-    }
+    # Lakukan penyewaan
+    cursor.execute(
+        "INSERT INTO rentals (renter_nama, plat_nomor, hari) VALUES (%s, %s, %s)",
+        (nama_renter, plat_nomor, rented_day)
+    )
+    conn.commit()
 
-    return f"\n{car_id} berhasil disewa oleh {nama_renter}, selama {rented_day} hari."
+    cursor.close()
+    conn.close()
+
+    return f"\n{plat_nomor} berhasil disewa oleh {nama_renter}, selama {rented_day} hari."
 
 
-def return_car(nama_renter: str, car_id: str) -> str:
-    """Mengembalikan mobil yang disewa."""
+def return_car(nama_renter: str, plat_nomor: str) -> str:
+    """Mengembalikan mobil yang disewa dari database."""
+    
+    conn = connect_db()
+    cursor = conn.cursor()
 
-    if nama_renter in renter_own and renter_own[nama_renter]['plat mobil'] == car_id:
-        del renter_own[nama_renter]
-        return f"{car_id} berhasil dikembalikan."
-    else:
+    # Cek apakah pengguna sedang menyewa mobil yang ingin dikembalikan
+    cursor.execute("SELECT * FROM rentals WHERE renter_nama = %s AND plat_nomor = %s", (nama_renter, plat_nomor))
+    rental = cursor.fetchone()
+
+    if not rental:
+        cursor.close()
+        conn.close()
         return "\nMobil tidak sedang disewa."
+
+    # Hapus data penyewaan dari database (mobil dikembalikan)
+    cursor.execute("DELETE FROM rentals WHERE renter_nama = %s AND plat_nomor = %s", (nama_renter, plat_nomor))
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return f"\n{plat_nomor} berhasil dikembalikan."

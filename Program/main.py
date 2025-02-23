@@ -1,28 +1,11 @@
-# ===================================
-# [CRUD Rental Mobil Himmel]
-# ===================================
-# Developed by. Jawed Iqbal Alfaruqiy
-
-# 1. Perkenalan
-# 2. Program secara umum
-# -> Program apa
-# -> untuk siapa
-# -> latar belakang masalah
-# 3. Jelaskan menu utama
-# 4. Struktur data
-# 5. Read, Create,
-
-
-# /===== Imported file =====/
 from login_register import login, register
-from rent_return import status_cars, return_car, renter_own, rent_car
 from data_car import data_car
+from rent_return import rent_car, return_car
 from biodata import biodata_menu
 
-# ===== Sign menu program =====
 def sign_menu():
     while True:
-        print("\n=== MENU MASUK RENTAL MOBIL XY ===")
+        print("\n=== MENU MASUK RENTAL MOBIL ===")
         print("1. Masukkan akun")
         print("2. Daftarkan akun")
         print("3. Exit") 
@@ -30,39 +13,26 @@ def sign_menu():
         option = input("Pilih opsi (1-3): ").strip()
 
         if option == '1':
-            print("\n=== Masuk ===")
             nama = input("Masukkan Nama: ").strip().title()
             pwd = input("Masukkan Password: ").strip()
             user = login(nama, pwd)  
 
             if user == "Login berhasil":  
                 print("\nLogin Berhasil!")
-                return nama  # Masuk ke menu utama
+                main_menu(nama)
             else:
-                print(user)  # Menampilkan pesan kesalahan dan kembali ke menu utama
+                print(user)
 
         elif option == '2':
-            print("\n=== Daftar ===")
             nama = input("Masukkan Nama Lengkap: ").strip().title()
-            if not nama:
-                print("Nama tidak boleh kosong! Kembali ke menu utama.")
-                return
-            
-            pwd = input("Masukkan Password (min. 6 karakter): ").strip()
-            if len(pwd) < 6:
-                print("Password terlalu pendek! Kembali ke menu utama.")
-                return
-
-            status = register(nama, pwd)  # Memanggil fungsi register
-            print(status)  # Menampilkan pesan status (berhasil atau gagal)
+            # ktp = input("Masukkan Nomor KTP: ").strip()
+            pwd = input("Masukkan Password: ").strip()
+            print(register(nama, pwd))
 
         elif option == '3':
             print("\nTerima kasih telah menggunakan layanan kami!")
             exit()
-        else:
-            print("Input invalid! Pilih opsi 1-3.")
 
-# ===== Main menu program =====
 def main_menu(nama):
     while True:
         print(f"\nSelamat datang, {nama}!")  
@@ -70,36 +40,25 @@ def main_menu(nama):
         print("1. Data mobil yang tersedia dan sewa mobil")
         print("2. Kembalikan Mobil")
         print("3. Biodata renter")
-        print("4. Kembali ke menu masuk")
-        print("5. Exit")
+        print("4. Exit")
 
-        choice = input("Pilih opsi (1-5): ").strip()
+        choice = input("Pilih opsi (1-4): ").strip()
 
         if choice == '1':
-            data_car(status_cars, renter_own, nama, rent_car)
+            data_car(nama, rent_car)  # Menampilkan daftar mobil dan menangani penyewaan
 
         elif choice == '2':
-            print("\nMobil yang kamu pinjam:", renter_own.get(nama, "Tidak ada"))
-            rent_info = input("Masukkan plat nomor mobil yang ingin dikembalikan: ").upper().strip()
-            print(return_car(nama, rent_info))
+            plat = input("Masukkan plat nomor mobil yang ingin dikembalikan: ").strip()
+            print(return_car(nama, plat))
 
         elif choice == '3':
-            biodata_menu(nama)  # Pindah ke fungsi pengelolaan biodata
+            biodata_menu(nama)
 
         elif choice == '4':
-            print("\nKembali ke menu masuk...")
-            return
-
-        elif choice == '5':
-            print("Terima kasih telah menggunakan layanan kami!")
+            print("\nKeluar dari sistem.")
             exit()
-
         else:
-            print("Input invalid! Pilih opsi 1-5.")
+            print("input invalid")
 
-# ===== Main Loop =====
 if __name__ == "__main__":
-    while True:
-        nama = sign_menu()  
-        if nama:  
-            main_menu(nama)  
+    sign_menu()

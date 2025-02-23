@@ -1,28 +1,26 @@
-# ================================
-# Data Mobil & Proses Penyewaan
-# ================================
+from database import connect_db
 
-def data_car(status_cars, renter_own, nama_renter, rent_car):
+def data_car(nama_renter, rent_car):
     """Menampilkan daftar mobil & menangani penyewaan."""
     
     while True:
         print("\n=== MENU DATA MOBIL ===")               
         print("1. Tampilkan semua mobil")               
-        print("2. Cari mobil berdasarkan plat nomor")
+        print("2. Cari mobil berdasarkan plat_nomor nomor")
         print("3. Cari mobil berdasarkan merek")
         print("4. Kembali ke menu utama")
         
         check_mobil = input("\nPilih opsi (1-4): ").strip()
 
         if check_mobil == '1':
-            tampilkan_semua_mobil(status_cars, renter_own)
-            proses_penyewaan(nama_renter, status_cars, renter_own, rent_car)
+            tampilkan_semua_mobil()
+            proses_penyewaan(nama_renter, rent_car)
 
         elif check_mobil == '2':
-            cari_mobil_berdasarkan_plat(status_cars, renter_own, nama_renter, rent_car)
+            cari_mobil_berdasarkan_plat_nomor(nama_renter, rent_car)
 
         elif check_mobil == '3':
-            cari_mobil_berdasarkan_merek(status_cars, renter_own, nama_renter, rent_car)
+            cari_mobil_berdasarkan_merek(nama_renter, rent_car)
 
         elif check_mobil == '4':
             break  # Kembali ke menu utama
@@ -31,57 +29,105 @@ def data_car(status_cars, renter_own, nama_renter, rent_car):
             print("Pilihan tidak valid, silakan coba lagi.")
 
 
-def tampilkan_semua_mobil(status_cars, renter_own):
-    """Menampilkan semua mobil beserta statusnya."""
+def tampilkan_semua_mobil():
+    """Menampilkan semua mobil beserta statusnya dari database."""
     
+    conn = connect_db()
+    cursor = conn.cursor(dictionary=True)
+
+    query = """
+        SELECT c.plat_nomor, c.merek, c.model, c.tahun, c.harga_sewa_per_hari, 
+        CASE 
+            WHEN r.plat_nomor IS NOT NULL THEN 'Disewa' 
+            ELSE 'Tersedia' 
+        END AS status
+        FROM cars c 
+        LEFT JOIN rentals r ON c.plat_nomor = r.plat_nomor;
+    """
+    cursor.execute(query)
+    cars = cursor.fetchall()
+
     print("\n=== DAFTAR MOBIL ===")
-    for plat, info in status_cars.items():
-        status = "Disewa" if any(rent_info['plat mobil'] == plat for rent_info in renter_own.values()) else "Tersedia"
-        print(f"{plat}: {info['merek']} {info['model']} ({info['tahun']}), Harga Sewa: {info['harga_sewa_per_hari']} Rupiah. Status: {status}")
+    for car in cars:
+        print(f"{car['plat_nomor']}: {car['merek']} {car['model']} ({car['tahun']}), Harga Sewa: {car['harga_sewa_per_hari']} Rupiah. Status: {car['status']}")
+
+    cursor.close()
+    conn.close()
 
 
-def cari_mobil_berdasarkan_plat(status_cars, renter_own, nama_renter, rent_car):
-    """Mencari mobil berdasarkan plat nomor."""
+def cari_mobil_berdasarkan_plat_nomor(nama_renter, rent_car):
+    """Mencari mobil berdasarkan plat_nomor nomor di database."""
     
-    plat = input("\nMasukkan nomor plat mobil: ").upper().strip()
-    
-    if plat in status_cars:
-        info = status_cars[plat]
-        status = "Disewa" if any(rent_info['plat mobil'] == plat for rent_info in renter_own.values()) else "Tersedia"
-        print(f"\n{plat}: {info['merek']} {info['model']} ({info['tahun']}), Harga Sewa: {info['harga_sewa_per_hari']} Rupiah. Status: {status}")
-        proses_penyewaan(nama_renter, status_cars, renter_own, rent_car, plat)
+    plat_nomor = input("\nMasukkan nomor plat_nomor mobil: ").upper().strip()
+
+    conn = connect_db()
+    cursor = conn.cursor(dictionary=True)
+
+    query = """
+        SELECT c.plat_nomor, c.merek, c.model, c.tahun, c.harga_sewa_per_hari, 
+        CASE 
+            WHEN r.plat_nomor IS NOT NULL THEN 'Disewa' 
+            ELSE 'Tersedia' 
+        END AS status
+        FROM cars c 
+        LEFT JOIN rentals r ON c.plat_nomor = r.plat_nomor
+        WHERE c.plat_nomor = %s;
+    """
+    cursor.execute(query, (plat_nomor,))
+    car = cursor.fetchone()
+
+    if car:
+        print(f"\n{car['plat_nomor']}: {car['merek']} {car['model']} ({car['tahun']}), Harga Sewa: {car['harga_sewa_per_hari']} Rupiah. Status: {car['status']}")
+        proses_penyewaan(nama_renter, rent_car, plat_nomor)
     else:
         print("Mobil yang Anda cari tidak ada.")
 
+    cursor.close()
+    conn.close()
 
-def cari_mobil_berdasarkan_merek(status_cars, renter_own, nama_renter, rent_car):
-    """Mencari mobil berdasarkan merek."""
+
+def cari_mobil_berdasarkan_merek(nama_renter, rent_car):
+    """Mencari mobil berdasarkan merek di database."""
 
     merek = input("\nMasukkan merek mobil: ").capitalize().strip()
-    ditemukan = False
 
-    for plat, info in status_cars.items():
-        if info["merek"] == merek:
-            status = "Disewa" if any(rent_info['plat mobil'] == plat for rent_info in renter_own.values()) else "Tersedia"
-            print(f"\n{plat}: {info['merek']} {info['model']} ({info['tahun']}), Harga Sewa: {info['harga_sewa_per_hari']} Rupiah. Status: {status}")
-            ditemukan = True
+    conn = connect_db()
+    cursor = conn.cursor(dictionary=True)
 
-    if ditemukan:
-        proses_penyewaan(nama_renter, status_cars, renter_own, rent_car)
+    query = """
+        SELECT c.plat_nomor, c.merek, c.model, c.tahun, c.harga_sewa_per_hari, 
+        CASE 
+            WHEN r.plat_nomor IS NOT NULL THEN 'Disewa' 
+            ELSE 'Tersedia' 
+        END AS status
+        FROM cars c 
+        LEFT JOIN rentals r ON c.plat_nomor = r.plat_nomor
+        WHERE c.merek = %s;
+    """
+    cursor.execute(query, (merek,))
+    cars = cursor.fetchall()
+
+    if cars:
+        for car in cars:
+            print(f"\n{car['plat_nomor']}: {car['merek']} {car['model']} ({car['tahun']}), Harga Sewa: {car['harga_sewa_per_hari']} Rupiah. Status: {car['status']}")
+        proses_penyewaan(nama_renter, rent_car)
     else:
         print("Mobil dengan merek tersebut tidak ditemukan.")
 
+    cursor.close()
+    conn.close()
 
-def proses_penyewaan(nama_renter, status_cars, renter_own, rent_car, plat=None):
+
+def proses_penyewaan(nama_renter, rent_car, plat_nomor=None):
     """Menangani proses penyewaan mobil."""
     
     rent_input = input("\nApakah Anda ingin menyewa mobil? (Y/N): ").upper().strip()
     
     if rent_input == 'Y':
-        if not plat:
-            plat = input("\nMasukkan plat nomor mobil yang ingin disewa: ").upper().strip()
+        if not plat_nomor:
+            plat_nomor = input("\nMasukkan plat_nomor nomor mobil yang ingin disewa: ").upper().strip()
 
-        print(rent_car(nama_renter, plat))
+        print(rent_car(nama_renter, plat_nomor))
     
     elif rent_input == 'N':
         return
