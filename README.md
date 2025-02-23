@@ -1,49 +1,41 @@
-# Python CRUD Application for [Business Domain]
+# Python CRUD Application for Car Hire
 
-A comprehensive Python application for managing [Data Entity] data with Create, Read, Update, and Delete (CRUD) operations.
+A comprehensive Python application for managing Renter Data data with Create, Read, Update, and Delete (CRUD) operations.
 
 ## Business Understanding
 
-This project caters to the [Industry/Business Domain] industry, specifically addressing the need to manage [Data Entity] data efficiently. [Data Entity] plays a crucial role in [Explain the importance of data entity in business processes].
+This project caters to the Car Hiring industry, specifically addressing the need to manage User data efficiently. User data plays a crucial role in the using of the crud system for the user in renting a car in a easier way.
 
 **Benefits:**
 
 * Improved data accuracy and consistency
 * Streamlined data management processes
 * Enhanced decision-making through readily available data
-* ... (List additional benefits relevant to the business)
+* Easier Renting
+* Account saving for another day purpose
 
 **Target Users:**
 
-This application is designed for [Target Users] (e.g., sales representatives, inventory managers, customer support agents) within the organization to facilitate their [Tasks/Activities] related to [Data Entity].
+This application is designed for person who want to rent a car within the organization to facilitate their Rent car do related to Renter data.
 
 ## Features
 
 * **Create:**
-    * Add new [Data Entity] entries with essential details like [List relevant fields].
+    * Add new Renter Data entries with essential details like Country ID, Name, and password.
     * Implement validation rules to ensure data integrity (if applicable, e.g., unique identifiers, data type checks).
 * **Read:**
-    * Search and retrieve specific [Data Entity] records by applying filters based on [Searchable fields].
-    * Display comprehensive information for each [Data Entity] in a user-friendly format.
-    * Integrate pagination and sorting capabilities for large datasets (if applicable).
+    * Search and retrieve specific Renter Data records by applying filters based on a car that the renter gonna rent.
+    * Display comprehensive information for each Renter Data in a user-friendly format.
 * **Update:**
-    * Modify existing [Data Entity] data to reflect changes in [Attributes/Properties].
+    * Modify existing Renter Data data to reflect changes in Rented car, or user information.
     * Provide clear confirmation or error messages based on update success or failure.
 * **Delete:**
-    * Allow for the removal of unwanted [Data Entity] records with appropriate authorization checks (if applicable).
-    * Implement soft delete functionality to prevent permanent data loss (optional, depending on business needs).
-    * Consider offering data archiving capabilities (optional).
-* **Security:**
-    * Implement user authentication and authorization mechanisms (if sensitive data is involved) to control access to different CRUD operations.
-    * ... (Specify additional security features as needed)
-* **Reporting:**
-    * Generate reports or summaries based on [Data Entity] data to support [Business Functions] (optional).
-    * Export data in various formats (e.g., CSV, Excel) for further analysis (optional).
+    * Allow for the removal of unwanted Renter Data records with appropriate authorization checks user information.
 
 ## Installation
 
 1. **Prerequisites:**
-    * Python version (specify the required version)
+    * Python version 3.11.11
     * Additional dependencies (list any required packages)
 
 2. **Installation:**
@@ -64,13 +56,13 @@ This application is designed for [Target Users] (e.g., sales representatives, in
     ```
 
 2. **CRUD Operations:**
-    * **Create:** Add a new [Data Entity] record, for example, a new customer in a customer management system, providing details like name, contact information, and preferences.
+    * **Create:** Add a new Renter Data record, for example, a new customer in a customer management system, providing details like name, contact information, and preferences.
     * **Read:** Search and retrieve customer information by name, ID, or other relevant criteria.
     * **Update:** Modify customer details, such as updating their address or contact details.
     * **Delete:** Remove a customer record from the system (with appropriate authorization, if applicable).
 
 ## Data Model
-This project utilizes a [Data Structure] (e.g., relational database, JSON documents) to represent [Data Entity] data. The following fields are typically stored:
+This project utilizes a [Data Structure] (e.g., relational database, JSON documents) to represent Renter Data data. The following fields are typically stored:
    * [Field 1]: (Data type) - Description of the field's purpose in the business context.
    * [Field 2]: (Data type) - Description of the field's purpose in the business context.
    * ... (List all relevant fields)
