@@ -1,3 +1,10 @@
+# ===================================
+# [CRUD Rental Mobil Himmel]
+# ===================================
+# Developed by. Jawed Iqbal Alfaruqiy
+
+# /************************************/
+
 from login_register import login, register
 from data_car import data_car
 from rent_return import rent_car, return_car
